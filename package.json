@@ -1,0 +1,82 @@
+{
+  "name": "@uxland/vue-regions",
+  "version": "0.0.0",
+  "description": "Vue Regions",
+  "author": "Alex Vizcaino <avizcaino@uxland.es>",
+  "homepage": "https://github.com/uxland/vue-regions/tree/master#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib",
+    "es",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uxland/vue-regions.git"
+  },
+  "scripts": {
+    "build:es": "tsc -p tsconfig.build.json --outDir es",
+    "build:cjs": "tsc -p tsconfig.build.json --outDir lib --module commonjs --declaration",
+    "build": "yarn build:es && yarn build:cjs",
+    "build:test": "echo nok > .buildstatus && yarn type-check && echo ok > .buildstatus",
+    "prebuild": "echo nok > .buildstatus",
+    "postbuild": "echo ok > .buildstatus",
+    "dist": "yarn build",
+    "readme:coverage": "node_modules/.bin/jest-badges-readme",
+    "semantic-release": "semantic-release",
+    "semantic-release:dry-run": "semantic-release --dry-run",
+    "semantic-release:local": "yarn dist && semantic-release --no-ci --debug",
+    "postsemantic-release:local": "git checkout -- package*",
+    "serve": "vue-cli-service serve demo/main.ts",
+    "tdd": "jest --watch --collect-coverage",
+    "tdd:benchmark": "jest --watch test/unit/benchmark.spec.ts --collect-coverage=false --testPathIgnorePatterns []",
+    "tdd:sandbox": "jest --watch test/unit/sandbox.spec.ts --testPathIgnorePatterns []",
+    "test:benchmark": "jest test/unit/benchmark.spec.ts --collect-coverage=false --testPathIgnorePatterns []",
+    "test:ui:watch": "nodemon --watch test --watch src -x \"polymer test --config-file wct.config.json\"",
+    "test:ui": "polymer test --config-file wct.config.json",
+    "test:unit": "jest --collect-coverage",
+    "test": "yarn test:unit",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check -- --watch"
+  },
+  "bugs": {
+    "url": "https://github.com/uxland/uxland/issues"
+  },
+  "dependencies": {
+    "@material/base": "^4.0.0",
+    "@uxland/regions": "^1.0.0-alpha.3",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.2",
+    "vue-mixin-decorator": "^1.2.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@olavoparno/jest-badges-readme": "^1.4.0",
+    "@types/jest": "^25.1.0",
+    "@vue/cli-plugin-typescript": "^4.2.2",
+    "@vue/cli-service": "^4.2.2",
+    "jest": "^25.1.0",
+    "jest-when": "^2.7.0",
+    "jsdom": "^16.1.0",
+    "mutation-observer": "^1.0.3",
+    "raf": "^3.4.1",
+    "semantic-release": "^17.0.0",
+    "ts-jest": "^25.0.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5",
+    "vue-property-decorator": "^8.4.0",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
